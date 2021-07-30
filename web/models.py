@@ -21,6 +21,9 @@ class Manhwa(models.Model):
     verified = models.BooleanField(default=False)
     rating = models.FloatField(default=0)
 
+    def __str__(self) -> str:
+        return "{} {} {}".format(self.title, self.author, self.status)
+
     def save(self, *args, **kwargs):
         self.slug = slugify(self.title)
         super(Manhwa, self).save(*args, **kwargs)
@@ -32,6 +35,9 @@ class Author(models.Model):
     last_name = models.CharField(max_length=50)
     created_at = models.DateTimeField(auto_now_add=True)
 
+    def __str__(self) -> str:
+        return "{} {}".format(self.first_name, self.last_name)
+
     def save(self, *args, **kwargs):
         self.slug = slugify("{} {}".format(self.first_name, self.last_name))
         super(Author, self).save(*args, **kwargs)
@@ -41,6 +47,9 @@ class Tags(models.Model):
     name = models.CharField(max_length=255)
     slug = models.SlugField(unique=True)
     created_at = models.DateTimeField(auto_now_add=True)
+
+    def __str__(self) -> str:
+        return self.name
 
     def save(self, *args, **kwargs):
         self.slug = slugify(self.name)
