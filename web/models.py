@@ -15,7 +15,7 @@ class Manhwa(models.Model):
     author = models.ForeignKey("Author", on_delete=models.CASCADE)
     description = models.TextField()
     status = models.IntegerField(choices=choices)
-    cover_image = models.ImageField(upload_to="manhwa/cover_image/")
+    cover_image = models.ImageField(upload_to="media/images/cover_images")
     created_at = models.DateTimeField(auto_now_add=True)
     tags = models.ManyToManyField("Tags")
     verified = models.BooleanField(default=False)
