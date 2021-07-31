@@ -5,3 +5,4 @@ Pillow
 django-seed
 factory_boy
 Faker
+gunicorn
