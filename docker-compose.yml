@@ -20,6 +20,7 @@ services:
       - db
   frontend:
     build:
+      context: ./frontend/
       args:
         API_URL: http://backend:3000
     command: ["npm", "start"]
