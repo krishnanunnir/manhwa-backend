@@ -6,3 +6,4 @@ django-seed
 factory_boy
 Faker
 gunicorn
+django-cors-headers
