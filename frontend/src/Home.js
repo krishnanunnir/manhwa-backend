@@ -26,12 +26,13 @@ class Home extends Component {
         <div>
           <div className="row justify-content-center">
             <div className="col-md-6 col-md-offset-3">
-              <h1>{item.name} </h1>
+                <img src={item.cover_image} />
+              <h3>{item.title} </h3>
             </div>
           </div>
           <div className="row justify-content-center">
             <div className="col-md-6 col-md-offset-3">
-              <h1>{item.name} </h1>
+              <p>{item.description} </p>
             </div>
           </div>
         </div>
