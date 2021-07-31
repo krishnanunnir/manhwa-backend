@@ -6,15 +6,15 @@ from django.template.defaultfilters import slugify
 
 class Manhwa(models.Model):
     choices = (
-        ("1", "Ongoing"),
-        ("2", "Cancelled"),
-        ("3", "Completed"),
+        ("Ongoing", "Ongoing"),
+        ("Cancelled", "Cancelled"),
+        ("Completed", "Completed"),
     )
     title = models.CharField(max_length=255)
     slug = models.SlugField(unique=True)
     author = models.ForeignKey("Author", on_delete=models.CASCADE)
     description = models.TextField()
-    status = models.IntegerField(choices=choices)
+    status = models.CharField(choices=choices, max_length=255)
     cover_image = models.ImageField(upload_to="images/cover_images")
     created_at = models.DateTimeField(auto_now_add=True)
     tags = models.ManyToManyField("Tags")

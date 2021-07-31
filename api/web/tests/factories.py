@@ -23,7 +23,7 @@ class ManhwaFactory(factory.django.DjangoModelFactory):
 
     title = factory.Faker("sentence", nb_words=4)
     author = factory.SubFactory(AuthorFactory)
-    status = 1
+    status = "Ongoing"
     description = factory.Faker("sentence", nb_words=20)
     cover_image = factory.django.ImageField(color="blue")
     verified = True
