@@ -10,28 +10,20 @@ services:
       - POSTGRES_USER=postgres
       - POSTGRES_PASSWORD=postgres
   backend:
-    build:
-      context: ./backend
-      args:
-        DJANGO_CORS_ORIGIN_WHITELIST: "*"
+    build: ./api/
     command: python manage.py runserver 0.0.0.0:8000
     volumes:
-      - .:/code
-      - ./static/:/code/static
+      - ./api:/app/api
     ports:
       - "8000:8000"
     depends_on:
       - db
   frontend:
     build:
-      context: ./frontend
       args:
         API_URL: http://backend:3000
     command: ["npm", "start"]
     volumes:
-      - build_folder:/frontend/build
-      - node-modules:/frontend/frontend/node_modules
+      - ./frontend:/app/frontend
     ports:
       - "3000:3000"
-volumes:
-  build_folder:
