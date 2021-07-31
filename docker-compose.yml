@@ -27,8 +27,10 @@ services:
       context: ./frontend
       args:
         API_URL: http://backend:3000
+    command: ["npm", "start"]
     volumes:
       - build_folder:/frontend/build
+      - node-modules:/frontend/frontend/node_modules
     ports:
       - "3000:3000"
 volumes:
