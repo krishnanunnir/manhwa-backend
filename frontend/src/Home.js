@@ -21,24 +21,25 @@ class Home extends Component {
   };
 
   renderItems = () => {
-      const itemslist = this.state.manhwaList;
-      return itemslist.map((item) => (
-        <div>
-          <div className="row justify-content-center">
-            <div className="col-md-6 col-md-offset-3">
-                <img src={item.cover_image} />
-              <h3>{item.title} </h3>
+    const itemslist = this.state.manhwaList;
+    return itemslist.map((item) => (
+      <div>
+        <div className="row justify-content-center">
+          <div className="col-md-6 col-md-offset-3 d-flex flex-row">
+            <div className="p-1">
+              <img src={item.cover_image} alt={item.description} />
             </div>
-          </div>
-          <div className="row justify-content-center">
-            <div className="col-md-6 col-md-offset-3">
-              <p>{item.description} </p>
+            <div>
+              <div className="d-flex flex-column p-1">
+                <h3>{item.title} </h3>
+                <p>{item.description} </p>
+              </div>
             </div>
           </div>
         </div>
-      ));
-
-      }
+      </div>
+    ));
+  }
 
   render() {
     return (
@@ -52,7 +53,7 @@ class Home extends Component {
           <div className="row justify-content-center">
             <div className="col-md-6 col-md-offset-3">
               <p>
-                I rememberrrr reading Solo leveling get hooked and trying to
+                I remember reading Solo leveling get hooked and trying to
                 find good Manhwas - the struggle is real 😰.
               </p>
               <p> Here is a gift from me to the community</p>
