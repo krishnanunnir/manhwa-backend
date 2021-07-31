@@ -26,14 +26,14 @@ class Home extends Component {
       <div>
         <div className="row justify-content-center">
           <div className="col-md-6 col-md-offset-3 d-flex flex-row">
-            <div className="p-1">
-              <img src={item.cover_image} alt={item.description} />
-            </div>
+                <div className="d-flex flex-column  justify-content-center">
+                    <img src={item.cover_image} alt={item.description} />
+                </div>
             <div>
-              <div className="d-flex flex-column p-1">
-                <h3>{item.title} </h3>
-                <p>{item.description} </p>
-              </div>
+                <div className="d-flex flex-column p-4">
+                    <h5>{item.title} </h5>
+                    <p className="pt-2">{item.description} </p>
+                </div>
             </div>
           </div>
         </div>
