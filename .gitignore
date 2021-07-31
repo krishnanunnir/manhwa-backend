@@ -1,2 +1,3 @@
 .envs/
 .mypy_cache/
+data/
