@@ -4,6 +4,8 @@ from .serializers import ManhwaSerializer
 from .models import Manhwa
 
 # Create your views here.
+
+
 class ManhwaViewSet(viewsets.ModelViewSet):
-    queryset = Manhwa.objects.filter(verified=True)
+    queryset = Manhwa.objects.filter(verified=True).order_by("created_at")
     serializer_class = ManhwaSerializer
