@@ -35,7 +35,6 @@ class Home extends Component {
             manhwaList:this.state.manhwaList.concat(res.data.results),
             more_exist:has_more
         }
-        console.log(data)
         this.setState(data)
     })
 }
@@ -62,7 +61,7 @@ class Home extends Component {
         <InfiniteScroll
           dataLength={this.state.manhwaList.length} //This is important field to render the next data
           next={this.fetchData}
-          hasMore={true}
+          hasMore={this.state.more_exist}
           loader={
             <p style={{ textAlign: "center" }}>
               <b>Loading....</b>
