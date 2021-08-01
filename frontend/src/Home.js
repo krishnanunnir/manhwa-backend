@@ -1,14 +1,17 @@
 import React, { Component } from "react";
 import axios from "axios";
 import Manhwa from "./components/Manhwa";
+import InfiniteScroll from 'react-infinite-scroll-component';
+
 
 const todoItems = [{}];
 class Home extends Component {
   constructor(props) {
     super(props);
     this.state = {
-      viewCompleted: false,
       manhwaList: todoItems,
+      next: null,
+      more_exist: true
     };
   }
   componentDidMount() {
@@ -18,15 +21,24 @@ class Home extends Component {
   refreshList = () => {
     axios
       .get("/api/manhwa")
-      .then((res) => this.setState({ manhwaList: res.data.results }));
+      .then((res) => this.setState({ manhwaList: res.data.results, next: res.data.next }));
   };
-
-  renderItems = () => {
-    const itemslist = this.state.manhwaList;
-    return itemslist.map((item) => (
-      <Manhwa item={item} />
-    ));
-  }
+  fetchData=()=>{
+    console.log("Fetching data");
+    axios.get(this.state.next).then(res=>{
+        var has_more=false
+        if(res.data.next){
+            has_more=true
+        }
+        var data = {
+            next:res.data.next,
+            manhwaList:this.state.manhwaList.concat(res.data.results),
+            more_exist:has_more
+        }
+        console.log(data)
+        this.setState(data)
+    })
+}
 
   render() {
     return (
@@ -47,7 +59,30 @@ class Home extends Component {
             </div>
           </div>
         </div>
-          {this.renderItems()}
+        <InfiniteScroll
+          dataLength={this.state.manhwaList.length} //This is important field to render the next data
+          next={this.fetchData}
+          hasMore={true}
+          loader={
+            <p style={{ textAlign: "center" }}>
+              <b>Loading....</b>
+            </p>
+          }
+          endMessage={
+            <p style={{ textAlign: "center" }}>
+              <b>Yay! You have seen it all</b>
+            </p>
+          }
+          // below props only if you need pull down functionality
+        >
+          <div>
+            {
+              this.state.manhwaList.map((item) => (
+                <Manhwa item={item} />
+              ))
+            }
+          </div>
+        </InfiniteScroll>
       </main>
     );
   }
