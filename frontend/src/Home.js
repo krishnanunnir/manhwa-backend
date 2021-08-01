@@ -1,6 +1,6 @@
 import React, { Component } from "react";
 import axios from "axios";
-import Manhwa from "./components/manhwa";
+import Manhwa from "./components/Manhwa";
 
 const todoItems = [{}];
 class Home extends Component {
