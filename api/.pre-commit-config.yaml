@@ -1,4 +1,15 @@
 repos:
+-   repo: https://github.com/pre-commit/mirrors-eslint
+    rev: 83cc8a6823d7729297b6814a644cca770cb99dbb
+    hooks:
+    -   id: eslint
+        additional_dependencies:
+        -   eslint@4.15.0
+        -   eslint-config-google@0.7.1
+        -   eslint-loader@1.6.1
+        -   eslint-plugin-react@6.10.3
+        -   babel-eslint@6.1.2
+
 -   repo: https://github.com/pre-commit/pre-commit-hooks
     rev: v2.3.0
     hooks:
@@ -14,7 +25,3 @@ repos:
     rev: v0.781
     hooks:
     -   id: mypy
-- repo: https://github.com/pre-commit/mirrors-prettier
-  rev: "" # Use the sha or tag you want to point at
-  hooks:
-    - id: prettier
