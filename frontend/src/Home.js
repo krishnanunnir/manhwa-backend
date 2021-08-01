@@ -1,5 +1,6 @@
 import React, { Component } from "react";
 import axios from "axios";
+import Manhwa from "./components/manhwa";
 
 const todoItems = [{}];
 class Home extends Component {
@@ -17,27 +18,13 @@ class Home extends Component {
   refreshList = () => {
     axios
       .get("/api/manhwa")
-      .then((res) => this.setState({ manhwaList: res.data }));
+      .then((res) => this.setState({ manhwaList: res.data.results }));
   };
 
   renderItems = () => {
     const itemslist = this.state.manhwaList;
     return itemslist.map((item) => (
-      <div>
-        <div className="row justify-content-center">
-          <div className="col-md-6 col-md-offset-3 d-flex flex-row">
-                <div className="d-flex flex-column  justify-content-center">
-                    <img src={item.cover_image} alt={item.description} />
-                </div>
-            <div>
-                <div className="d-flex flex-column p-4">
-                    <h5>{item.title} </h5>
-                    <p className="pt-2">{item.description} </p>
-                </div>
-            </div>
-          </div>
-        </div>
-      </div>
+      <Manhwa item={item} />
     ));
   }
 
@@ -53,18 +40,14 @@ class Home extends Component {
           <div className="row justify-content-center">
             <div className="col-md-6 col-md-offset-3">
               <p>
-                I remember reading Solo leveling get hooked and trying to
-                find good Manhwas - the struggle is real 😰.
+                I remember reading Solo leveling get hooked and trying to find
+                good Manhwas - the struggle is real 😰.
               </p>
               <p> Here is a gift from me to the community</p>
             </div>
           </div>
         </div>
-        {this.renderItems()}
-        <div className="row justify-content-center">
-            <div className="col-md-6 col-md-offset-3">
-            </div>
-        </div>
+          {this.renderItems()}
       </main>
     );
   }
