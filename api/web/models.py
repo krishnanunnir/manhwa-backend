@@ -11,13 +11,13 @@ class Manhwa(models.Model):
         ("Completed", "Completed"),
     )
     title = models.CharField(max_length=255)
-    slug = models.SlugField(unique=True)
+    slug = models.SlugField(unique=True, blank=True)
     author = models.ForeignKey("Author", on_delete=models.CASCADE)
     description = models.TextField()
     status = models.CharField(choices=choices, max_length=255)
     cover_image = models.ImageField(upload_to="images/cover_images")
     created_at = models.DateTimeField(auto_now_add=True)
-    tags = models.ManyToManyField("Tags")
+    tags = models.ManyToManyField("Tags", blank=True)
     verified = models.BooleanField(default=False)
     rating = models.FloatField(default=0)
 
