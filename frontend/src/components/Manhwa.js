@@ -1,4 +1,6 @@
 import React, { Component } from "react";
+import { Link } from "react-router-dom";
+
 class Manhwa extends Component {
   render() {
     return (
@@ -13,7 +15,11 @@ class Manhwa extends Component {
             </div>
             <div>
               <div className="d-flex flex-column p-4">
-                <h5>{this.props.item.title} </h5>
+                <h5>
+                  <Link to={`manhwa/${this.props.item.slug}`}>
+                    {this.props.item.title}{" "}
+                  </Link>
+                </h5>
                 <p className="pt-2">{this.props.item.description} </p>
               </div>
             </div>

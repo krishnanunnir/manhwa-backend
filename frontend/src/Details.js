@@ -20,7 +20,6 @@ class Details extends Component {
   }
 
   refreshList = () => {
-    console.log(this.manhwaSlug);
     axios
       .get("/api/manhwa/" + this.manhwaSlug)
       .then((res) => this.setState({ manhwa: res.data }));
