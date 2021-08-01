@@ -1,20 +1,19 @@
-import React from 'react';
-import ReactDOM from 'react-dom';
-import './index.css';
-import App from './App';
-import Home from './Home';
-import reportWebVitals from './reportWebVitals';
-import { Route, BrowserRouter as Router, Switch } from 'react-router-dom'
-import Details from './Details';
+import React from "react";
+import ReactDOM from "react-dom";
+import "./index.css";
+import App from "./App";
+import Home from "./Home";
+import reportWebVitals from "./reportWebVitals";
+import { Route, BrowserRouter as Router, Switch } from "react-router-dom";
+import Details from "./Details";
 
-ReactDOM.render((
+ReactDOM.render(
   <Router>
-  <Switch>
+    <Switch>
       <Route exact path="/manhwa/:manhwaSlug" component={Details} />
       <Route path="/" component={Home} />
-  </Switch>
-  </Router>
-  ),
+    </Switch>
+  </Router>,
   document.getElementById("root")
 );
 

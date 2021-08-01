@@ -1,8 +1,7 @@
 import React, { Component } from "react";
 import axios from "axios";
 import Manhwa from "./components/Manhwa";
-import InfiniteScroll from 'react-infinite-scroll-component';
-
+import InfiniteScroll from "react-infinite-scroll-component";
 
 const todoItems = [{}];
 class Home extends Component {
@@ -11,7 +10,7 @@ class Home extends Component {
     this.state = {
       manhwaList: todoItems,
       next: null,
-      more_exist: true
+      more_exist: true,
     };
   }
   componentDidMount() {
@@ -21,23 +20,25 @@ class Home extends Component {
   refreshList = () => {
     axios
       .get("/api/manhwa")
-      .then((res) => this.setState({ manhwaList: res.data.results, next: res.data.next }));
+      .then((res) =>
+        this.setState({ manhwaList: res.data.results, next: res.data.next })
+      );
   };
-  fetchData=()=>{
+  fetchData = () => {
     console.log("Fetching data");
-    axios.get(this.state.next).then(res=>{
-        var has_more=false
-        if(res.data.next){
-            has_more=true
-        }
-        var data = {
-            next:res.data.next,
-            manhwaList:this.state.manhwaList.concat(res.data.results),
-            more_exist:has_more
-        }
-        this.setState(data)
-    })
-}
+    axios.get(this.state.next).then((res) => {
+      var has_more = false;
+      if (res.data.next) {
+        has_more = true;
+      }
+      var data = {
+        next: res.data.next,
+        manhwaList: this.state.manhwaList.concat(res.data.results),
+        more_exist: has_more,
+      };
+      this.setState(data);
+    });
+  };
 
   render() {
     return (
@@ -75,11 +76,9 @@ class Home extends Component {
           // below props only if you need pull down functionality
         >
           <div>
-            {
-              this.state.manhwaList.map((item) => (
-                <Manhwa item={item} />
-              ))
-            }
+            {this.state.manhwaList.map((item) => (
+              <Manhwa item={item} />
+            ))}
           </div>
         </InfiniteScroll>
       </main>
