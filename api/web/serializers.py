@@ -15,3 +15,5 @@ class ManhwaSerializer(serializers.ModelSerializer):
             "cover_image",
             "tags",
         )
+        lookup_field = "slug"
+        extra_kwargs = {"url": {"lookup_field": "slug"}}
