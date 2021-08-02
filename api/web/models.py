@@ -12,7 +12,7 @@ class Manhwa(models.Model):
     )
     title = models.CharField(max_length=255)
     slug = models.SlugField(unique=True, blank=True)
-    author = models.ForeignKey("Author", on_delete=models.CASCADE)
+    author = models.CharField(max_length=255)
     description = models.TextField()
     status = models.CharField(choices=choices, max_length=255)
     cover_image = models.ImageField(upload_to="images/cover_images")
