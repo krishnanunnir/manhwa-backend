@@ -24,6 +24,7 @@ export default class CustomModal extends Component {
         description: "",
         author: "",
         status: "Ongoing",
+        coverimage: null,
       },
       dropdown: false,
     };
@@ -31,13 +32,11 @@ export default class CustomModal extends Component {
 
   handleChange = (e) => {
     let { name, value } = e.target;
-
-    if (e.target.type === "checkbox") {
-      value = e.target.checked;
+    if (e.target.type === "file") {
+      value = e.target.files[0];
     }
 
     const manhwa = { ...this.state.manhwa, [name]: value };
-
     this.setState({ manhwa });
   };
   handleDropdodwn = () => {
@@ -112,9 +111,13 @@ export default class CustomModal extends Component {
               </DropdownItem>
             </DropdownMenu>
           </Dropdown>
+          <FormGroup>
+            <Label for="manhwaCoverImage">Add a cover image</Label>
+            <Input type="file" name="coverimage" onChange={this.handleChange} />
+          </FormGroup>
         </ModalBody>
         <ModalFooter>
-          <Button color="success" onClick={() => onSave(this.state.activeItem)}>
+          <Button color="success" onClick={() => onSave(this.state.manhwa)}>
             Save
           </Button>
         </ModalFooter>
