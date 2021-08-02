@@ -19,20 +19,30 @@ export default class CustomModal extends Component {
   constructor(props) {
     super(props);
     this.state = {
-      title: "",
-      description: "",
-      author: "",
-      status: "Ongoing",
+      manhwa: {
+        title: "",
+        description: "",
+        author: "",
+        status: "Ongoing",
+      },
       dropdown: false,
     };
   }
 
   handleChange = (e) => {
-    this.setState({ [e.target.name]: e.target.value });
+    let { name, value } = e.target;
+
+    if (e.target.type === "checkbox") {
+      value = e.target.checked;
+    }
+
+    const manhwa = { ...this.state.manhwa, [name]: value };
+
+    this.setState({ manhwa });
   };
-  handleDropdodwn() {
-    this.state.dropdown = !this.state.dropdown;
-  }
+  handleDropdodwn = () => {
+    this.setState({ dropdown: !this.state.dropdown });
+  };
 
   render() {
     const { toggle, onSave } = this.props;
@@ -77,11 +87,29 @@ export default class CustomModal extends Component {
             </FormGroup>
           </Form>
           <Dropdown isOpen={this.state.dropdown} toggle={this.handleDropdodwn}>
-            <DropdownToggle caret>Status</DropdownToggle>
+            <DropdownToggle caret>{this.state.manhwa.status}</DropdownToggle>
             <DropdownMenu right>
-              <DropdownItem header>Ongoing</DropdownItem>
-              <DropdownItem disabled>Cancelled</DropdownItem>
-              <DropdownItem>Completed</DropdownItem>
+              <DropdownItem
+                name="status"
+                value="Ongoing"
+                onClick={this.handleChange}
+              >
+                Ongoing
+              </DropdownItem>
+              <DropdownItem
+                name="status"
+                value="Cancelled"
+                onClick={this.handleChange}
+              >
+                Cancelled
+              </DropdownItem>
+              <DropdownItem
+                name="status"
+                value="Completed"
+                onClick={this.handleChange}
+              >
+                Completed
+              </DropdownItem>
             </DropdownMenu>
           </Dropdown>
         </ModalBody>
