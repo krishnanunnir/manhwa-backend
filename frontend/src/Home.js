@@ -3,6 +3,8 @@ import axios from "axios";
 import Manhwa from "./components/Manhwa";
 import InfiniteScroll from "react-infinite-scroll-component";
 import Modal from "./components/Modal";
+import { Spinner } from "reactstrap";
+
 const todoItems = [{}];
 class Home extends Component {
   constructor(props) {
@@ -82,7 +84,7 @@ class Home extends Component {
           hasMore={this.state.more_exist}
           loader={
             <p style={{ textAlign: "center" }}>
-              <b>Loading....</b>
+              <Spinner color="secondary" />
             </p>
           }
           endMessage={
