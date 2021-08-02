@@ -22,7 +22,7 @@ class ManhwaFactory(factory.django.DjangoModelFactory):
         model = Manhwa
 
     title = factory.Faker("sentence", nb_words=4)
-    author = factory.SubFactory(AuthorFactory)
+    author = "{} {}".format(factory.Faker("first_name"), factory.Faker("last_name"))
     status = "Ongoing"
     description = factory.Faker("sentence", nb_words=20)
     cover_image = factory.django.ImageField(color="blue")
