@@ -2,7 +2,7 @@ import React, { Component } from "react";
 import axios from "axios";
 import Manhwa from "./components/Manhwa";
 import InfiniteScroll from "react-infinite-scroll-component";
-
+import Modal from "./components/Modal";
 const todoItems = [{}];
 class Home extends Component {
   constructor(props) {
@@ -11,6 +11,7 @@ class Home extends Component {
       manhwaList: todoItems,
       next: null,
       more_exist: true,
+      modal: false,
     };
   }
   componentDidMount() {
@@ -40,9 +41,25 @@ class Home extends Component {
     });
   };
 
+  toggle = () => {
+    this.setState({ modal: !this.state.modal });
+  };
+
+  handleSubmit = (item) => {
+    this.toggle();
+
+    alert("save" + JSON.stringify(item));
+  };
+
   render() {
     return (
       <main className="container">
+        <div className="navbar d-flex justify-content-end">
+          <button className="btn btn-primary mr-2" onClick={this.toggle}>
+            Add a new Manhwa
+          </button>
+        </div>
+
         <div className="row justify-content-center">
           <div className="col-md-6 col-md-offset-3">
             <h1>Find the best Manhwas</h1>
@@ -81,6 +98,9 @@ class Home extends Component {
             ))}
           </div>
         </InfiniteScroll>
+        {this.state.modal ? (
+          <Modal toggle={this.toggle} onSave={this.handleSubmit} />
+        ) : null}
       </main>
     );
   }
