@@ -11,6 +11,12 @@ class Manhwa extends Component {
               <img
                 src={this.props.item.cover_image}
                 alt={this.props.item.description}
+                style={{
+                  height: "auto",
+                  width: "auto",
+                  maxHeight: "7em",
+                  maxWidth: "7em",
+                }}
               />
             </div>
             <div>
