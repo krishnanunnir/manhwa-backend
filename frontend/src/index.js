@@ -6,12 +6,14 @@ import Home from "./Home";
 import reportWebVitals from "./reportWebVitals";
 import { Route, BrowserRouter as Router, Switch } from "react-router-dom";
 import Details from "./Details";
+import NotFound from "./NotFound";
 
 ReactDOM.render(
   <Router>
     <Switch>
       <Route exact path="/manhwa/:manhwaSlug" component={Details} />
-      <Route path="/" component={Home} />
+      <Route exact path="/" component={Home} />
+      <Route path="/" component={NotFound} />
     </Switch>
   </Router>,
   document.getElementById("root")
