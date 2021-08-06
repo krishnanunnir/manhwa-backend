@@ -4,6 +4,7 @@ import Manhwa from "./components/Manhwa";
 import InfiniteScroll from "react-infinite-scroll-component";
 import Modal from "./components/Modal";
 import { Spinner } from "reactstrap";
+import "./Home.css";
 
 const todoItems = [{}];
 class Home extends Component {
@@ -88,9 +89,9 @@ class Home extends Component {
           next={this.fetchData}
           hasMore={this.state.more_exist}
           loader={
-            <p style={{ textAlign: "center" }}>
+            <div style={{ textAlign: "center" }}>
               <Spinner color="secondary" />
-            </p>
+            </div>
           }
           endMessage={
             <p style={{ textAlign: "center" }}>
