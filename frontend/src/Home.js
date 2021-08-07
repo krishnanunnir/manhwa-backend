@@ -1,20 +1,23 @@
 import React, { Component } from "react";
 import axios from "axios";
-import Manhwa from "./components/Manhwa";
-import InfiniteScroll from "react-infinite-scroll-component";
-import Modal from "./components/Modal";
 import { Spinner } from "reactstrap";
+import InfiniteScroll from "react-infinite-scroll-component";
+import Manhwa from "./components/Manhwa";
+import Modal from "./components/Modal";
 import "./Home.css";
+import "./Manhwa.css";
 
 const todoItems = [{}];
 class Home extends Component {
   constructor(props) {
     super(props);
+    this.addActiveManhwa = this.addActiveManhwa.bind(this);
     this.state = {
       manhwaList: todoItems,
       next: null,
       more_exist: true,
       modal: false,
+      activeManhwa: [],
     };
   }
   componentDidMount() {
@@ -57,6 +60,16 @@ class Home extends Component {
         "Content-Type": `multipart/form-data; boundary=${item._boundary}`,
       },
     });
+  };
+
+  addActiveManhwa = (manhwa) => {
+    const index = this.state.activeManhwa.indexOf(manhwa);
+    console.log(index);
+    if (index > -1) {
+      this.state.activeManhwa.splice(index, 1);
+    } else {
+      this.setState({ activeManhwa: this.state.activeManhwa.concat(manhwa) });
+    }
   };
 
   render() {
@@ -102,7 +115,12 @@ class Home extends Component {
         >
           <div>
             {this.state.manhwaList.map((item) => (
-              <Manhwa item={item} />
+              <Manhwa
+                key={item.id}
+                item={item}
+                selected={this.state.activeManhwa.includes(item)}
+                onChange={this.addActiveManhwa}
+              />
             ))}
           </div>
         </InfiniteScroll>
