@@ -7,13 +7,12 @@ import Modal from "./components/Modal";
 import "./Home.css";
 import "./Manhwa.css";
 
-const todoItems = [{}];
 class Home extends Component {
   constructor(props) {
     super(props);
     this.addActiveManhwa = this.addActiveManhwa.bind(this);
     this.state = {
-      manhwaList: todoItems,
+      manhwaList: [],
       next: null,
       more_exist: true,
       modal: false,
@@ -23,9 +22,10 @@ class Home extends Component {
   componentDidMount() {
     this.refreshList();
     this.setState({
-      activeManhwa: localStorage.getItem("activeManhwa")
-        ? JSON.parse(localStorage.getItem("activeManhwa"))
-        : [],
+      activeManhwa:
+        localStorage.getItem("activeManhwa") != null
+          ? JSON.parse(localStorage.getItem("activeManhwa"))
+          : [],
     });
   }
 
@@ -54,6 +54,12 @@ class Home extends Component {
   toggle = () => {
     this.setState({ modal: !this.state.modal });
   };
+  clearList = () => {
+    localStorage.removeItem("activeManhwa");
+    this.setState({
+      activeManhwa: [],
+    });
+  };
 
   handleSubmit = (item) => {
     this.toggle();
@@ -68,21 +74,31 @@ class Home extends Component {
 
   addActiveManhwa = (manhwa) => {
     const index = this.state.activeManhwa.indexOf(manhwa);
+    var activeManhwa = this.state.activeManhwa;
     if (index > -1) {
-      this.state.activeManhwa.splice(index, 1);
+      activeManhwa.splice(index, 1);
     } else {
-      this.setState({ activeManhwa: this.state.activeManhwa.concat(manhwa) });
+      activeManhwa = [...activeManhwa, manhwa];
     }
-    localStorage.setItem(
-      "activeManhwa",
-      JSON.stringify([...this.state.activeManhwa])
-    );
+    this.setState({ activeManhwa: activeManhwa }, () => {
+      localStorage.setItem(
+        "activeManhwa",
+        JSON.stringify(this.state.activeManhwa)
+      );
+      console.log(localStorage.getItem("activeManhwa"));
+    });
   };
 
   render() {
     return (
       <main className="container">
         <div className="navbar d-flex justify-content-end">
+          <button className="btn btn-primary mr-2" onClick={this.clearList}>
+            Clear list
+          </button>
+          <button className="btn btn-primary mr-2" onClick={this.toggle}>
+            Generate list
+          </button>
           <button className="btn btn-primary mr-2" onClick={this.toggle}>
             Add a new Manhwa
           </button>
