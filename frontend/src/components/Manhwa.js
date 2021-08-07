@@ -13,7 +13,7 @@ class Manhwa extends Component {
   handleChange = (item) => {
     const { onChange } = this.props;
     this.setState({ selected: !this.state.selected });
-    onChange(item);
+    onChange(item.slug);
   };
   render() {
     const { item } = this.props;

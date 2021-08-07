@@ -22,6 +22,11 @@ class Home extends Component {
   }
   componentDidMount() {
     this.refreshList();
+    this.setState({
+      activeManhwa: localStorage.getItem("activeManhwa")
+        ? JSON.parse(localStorage.getItem("activeManhwa"))
+        : [],
+    });
   }
 
   refreshList = () => {
@@ -32,7 +37,6 @@ class Home extends Component {
       );
   };
   fetchData = () => {
-    console.log("Fetching data");
     axios.get(this.state.next).then((res) => {
       var has_more = false;
       if (res.data.next) {
@@ -64,12 +68,15 @@ class Home extends Component {
 
   addActiveManhwa = (manhwa) => {
     const index = this.state.activeManhwa.indexOf(manhwa);
-    console.log(index);
     if (index > -1) {
       this.state.activeManhwa.splice(index, 1);
     } else {
       this.setState({ activeManhwa: this.state.activeManhwa.concat(manhwa) });
     }
+    localStorage.setItem(
+      "activeManhwa",
+      JSON.stringify([...this.state.activeManhwa])
+    );
   };
 
   render() {
@@ -118,7 +125,7 @@ class Home extends Component {
               <Manhwa
                 key={item.id}
                 item={item}
-                selected={this.state.activeManhwa.includes(item)}
+                selected={this.state.activeManhwa.includes(item.slug)}
                 onChange={this.addActiveManhwa}
               />
             ))}
