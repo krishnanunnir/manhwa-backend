@@ -1,5 +1,5 @@
 from django.contrib.auth.models import User, Group
-from .models import Manhwa
+from .models import Manhwa, ManhwaList
 from rest_framework import serializers
 
 
@@ -15,5 +15,15 @@ class ManhwaSerializer(serializers.ModelSerializer):
             "cover_image",
             "tags",
         )
+        lookup_field = "slug"
+        extra_kwargs = {"url": {"lookup_field": "slug"}}
+
+
+class ManhwaListSerialier(serializers.ModelSerializer):
+    manhwas = ManhwaSerializer(many=True, read_only=True)
+
+    class Meta:
+        model = ManhwaList
+        fields = ("title", "identifier", "slug", "manhwas")
         lookup_field = "slug"
         extra_kwargs = {"url": {"lookup_field": "slug"}}
