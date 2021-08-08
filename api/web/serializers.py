@@ -20,7 +20,7 @@ class ManhwaSerializer(serializers.ModelSerializer):
 
 
 class ManhwaListSerialier(serializers.ModelSerializer):
-    manhwas = ManhwaSerializer(many=True, read_only=True)
+    manhwas = ManhwaSerializer(many=True)
 
     class Meta:
         model = ManhwaList
