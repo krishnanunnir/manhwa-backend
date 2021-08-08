@@ -30,11 +30,14 @@ class Home extends Component {
   }
 
   refreshList = () => {
-    axios
-      .get("/api/manhwa")
-      .then((res) =>
-        this.setState({ manhwaList: res.data.results, next: res.data.next })
-      );
+    var manhwaList = JSON.parse(localStorage.getItem("manhwaList"));
+    if (manhwaList != null) {
+      this.setState({ manhwaList });
+    }
+    axios.get("/api/manhwa").then((res) => {
+      this.setState({ manhwaList: res.data.results, next: res.data.next });
+      localStorage.setItem("manhwaList", JSON.stringify(res.data.results));
+    });
   };
   fetchData = () => {
     axios.get(this.state.next).then((res) => {
@@ -59,6 +62,7 @@ class Home extends Component {
     this.setState({
       activeManhwa: [],
     });
+    window.location.reload();
   };
 
   handleSubmit = (item) => {
