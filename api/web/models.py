@@ -1,5 +1,6 @@
 from django.db import models
 from django.template.defaultfilters import slugify
+import datetime
 
 # Create your models here.
 
@@ -54,3 +55,15 @@ class Tags(models.Model):
     def save(self, *args, **kwargs):
         self.slug = slugify(self.name)
         super(Tags, self).save(*args, **kwargs)
+
+
+class ManhwaList(models.Model):
+    title = models.CharField(max_length=255)
+    identifier = models.CharField(max_length=255)
+    slug = models.SlugField(unique=True)
+    manhwas = models.ManyToManyField(Manhwa)
+
+    def save(self, *args, **kwargs):
+        current_time_as_string = str(datetime.datetime.now())
+        self.slug = "%s-%s" % (slugify(current_time_as_string), slugify(self.title))
+        super(ManhwaList, self).save(*args, **kwargs)
