@@ -15,7 +15,7 @@ class Home extends Component {
       manhwaList: [],
       next: null,
       more_exist: true,
-      modal: false,
+      newManhwaModal: false,
       activeManhwa: [],
     };
   }
@@ -54,8 +54,8 @@ class Home extends Component {
     });
   };
 
-  toggle = () => {
-    this.setState({ modal: !this.state.modal });
+  manhwaModalToggle = () => {
+    this.setState({ newManhwaModal: !this.state.newManhwaModal });
   };
   clearList = () => {
     localStorage.removeItem("activeManhwa");
@@ -66,7 +66,7 @@ class Home extends Component {
   };
 
   handleSubmit = (item) => {
-    this.toggle();
+    this.manhwaModalToggle();
     axios.post("/api/manhwa/", item, {
       headers: {
         accept: "application/json",
@@ -100,10 +100,16 @@ class Home extends Component {
           <button className="btn btn-primary mr-2" onClick={this.clearList}>
             Clear list
           </button>
-          <button className="btn btn-primary mr-2" onClick={this.toggle}>
+          <button
+            className="btn btn-primary mr-2"
+            onClick={this.manhwaModalToggle}
+          >
             Generate list
           </button>
-          <button className="btn btn-primary mr-2" onClick={this.toggle}>
+          <button
+            className="btn btn-primary mr-2"
+            onClick={this.manhwaModalToggle}
+          >
             Add a new Manhwa
           </button>
         </div>
@@ -151,8 +157,8 @@ class Home extends Component {
             ))}
           </div>
         </InfiniteScroll>
-        {this.state.modal ? (
-          <Modal toggle={this.toggle} onSave={this.handleSubmit} />
+        {this.state.newManhwaModal ? (
+          <Modal toggle={this.manhwaModalToggle} onSave={this.handleSubmit} />
         ) : null}
       </main>
     );
