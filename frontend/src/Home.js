@@ -4,6 +4,7 @@ import { Spinner } from "reactstrap";
 import InfiniteScroll from "react-infinite-scroll-component";
 import Manhwa from "./components/Manhwa";
 import Modal from "./components/Modal";
+import ListModal from "./components/CreateListModal";
 import "./Home.css";
 import "./Manhwa.css";
 
@@ -16,6 +17,7 @@ class Home extends Component {
       next: null,
       more_exist: true,
       newManhwaModal: false,
+      listModal: false,
       activeManhwa: [],
     };
   }
@@ -64,8 +66,14 @@ class Home extends Component {
     });
     window.location.reload();
   };
+  listModalToggle = () => {
+    this.setState({ listModal: !this.state.listModal });
+  };
+  handleListModalSubmit = (data) => {
+    this.listModalToggle();
+  };
 
-  handleSubmit = (item) => {
+  handleManhwaModalSubmit = (item) => {
     this.manhwaModalToggle();
     axios.post("/api/manhwa/", item, {
       headers: {
@@ -102,7 +110,7 @@ class Home extends Component {
           </button>
           <button
             className="btn btn-primary mr-2"
-            onClick={this.manhwaModalToggle}
+            onClick={this.listModalToggle}
           >
             Generate list
           </button>
@@ -158,7 +166,17 @@ class Home extends Component {
           </div>
         </InfiniteScroll>
         {this.state.newManhwaModal ? (
-          <Modal toggle={this.manhwaModalToggle} onSave={this.handleSubmit} />
+          <Modal
+            toggle={this.manhwaModalToggle}
+            onSave={this.handleManhwaModalSubmit}
+          />
+        ) : null}
+        {this.state.listModal ? (
+          <ListModal
+            toggle={this.listModalToggle}
+            onSave={this.handleListModalSubmit}
+            onCancel={this.listModalToggle}
+          />
         ) : null}
       </main>
     );
