@@ -20,7 +20,7 @@ class ManhwaSerializer(serializers.ModelSerializer):
 
 
 class ManhwaListSerialier(serializers.ModelSerializer):
-    manhwas = ManhwaSerializer(many=True)
+    manhwas = serializers.SlugRelatedField(many=True, slug_field="slug", read_only=True)
 
     class Meta:
         model = ManhwaList
