@@ -30,6 +30,7 @@ export default class CustomModal extends Component {
     }
 
     const list = { ...this.state.list, [name]: value };
+    this.setState({ list });
   };
   handleDropdodwn = () => {
     this.setState({ dropdown: !this.state.dropdown });

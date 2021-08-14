@@ -113,7 +113,11 @@ export default class CustomModal extends Component {
           </Dropdown>
           <FormGroup>
             <Label for="manhwaCoverImage">Add a cover image</Label>
-            <Input type="file" name="coverimage" onChange={this.handleChange} />
+            <Input
+              type="file"
+              name="cover_image"
+              onChange={this.handleChange}
+            />
           </FormGroup>
         </ModalBody>
         <ModalFooter>

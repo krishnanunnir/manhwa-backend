@@ -7,7 +7,7 @@ import Modal from "./components/Modal";
 import ListModal from "./components/CreateListModal";
 import "./Home.css";
 import "./Manhwa.css";
-
+var x = null;
 class Home extends Component {
   constructor(props) {
     super(props);
@@ -75,11 +75,36 @@ class Home extends Component {
 
   handleManhwaModalSubmit = (item) => {
     this.manhwaModalToggle();
-    axios.post("/api/manhwa/", item, {
+    const formData = new FormData();
+    console.log(item);
+    for (var key in item) {
+      formData.append(key, item[key]);
+    }
+    axios({
+      method: "post",
+      url: "/api/manhwa/",
+      data: formData,
       headers: {
-        accept: "application/json",
         "Accept-Language": "en-US,en;q=0.8",
-        "Content-Type": `multipart/form-data; boundary=${item._boundary}`,
+        "Content-Type": `multipart/form-data`,
+      },
+    });
+  };
+  handleListModalSubmit = (item) => {
+    item = { ...item, manhwas: this.state.activeManhwa };
+    const formData = new FormData();
+    console.log(this.activeManhwa);
+    console.log(item);
+    for (var key in item) {
+      formData.append(key, item[key]);
+    }
+    axios({
+      method: "post",
+      url: "/api/list/",
+      data: formData,
+      headers: {
+        "Accept-Language": "en-US,en;q=0.8",
+        "Content-Type": `multipart/form-data`,
       },
     });
   };
