@@ -61,7 +61,7 @@ class ManhwaList(models.Model):
     title = models.CharField(max_length=255)
     identifier = models.CharField(max_length=255)
     slug = models.SlugField(unique=True, blank=True)
-    manhwas = models.ManyToManyField(Manhwa)
+    manhwas = models.ManyToManyField(Manhwa, blank=True)
 
     def save(self, *args, **kwargs):
         current_time_as_string = str(datetime.datetime.now())
