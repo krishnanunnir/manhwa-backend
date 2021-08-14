@@ -60,7 +60,7 @@ class Tags(models.Model):
 class ManhwaList(models.Model):
     title = models.CharField(max_length=255)
     identifier = models.CharField(max_length=255)
-    slug = models.SlugField(unique=True)
+    slug = models.SlugField(unique=True, blank=True)
     manhwas = models.ManyToManyField(Manhwa)
 
     def save(self, *args, **kwargs):
