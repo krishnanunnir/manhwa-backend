@@ -9,6 +9,8 @@ services:
       - POSTGRES_DB=postgres
       - POSTGRES_USER=postgres
       - POSTGRES_PASSWORD=postgres
+    ports:
+      - "5432:5432"
   backend:
     build: ./api/
     command: python manage.py runserver 0.0.0.0:8000
@@ -22,7 +24,7 @@ services:
     build:
       context: ./frontend/
       args:
-        API_URL: http://backend:3000
+        API_URL: http://backend:8000
     command: ["npm", "start"]
     volumes:
       - ./frontend:/app/frontend

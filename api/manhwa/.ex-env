@@ -1,0 +1,6 @@
+name="postgres"
+user="postgres"
+password="postgres"
+port="5432"
+host="127.0.0.1"
+FRONTEND_URL="http://127.0.0.1:3000"
