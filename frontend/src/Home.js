@@ -22,7 +22,6 @@ class Home extends Component {
     };
   }
   componentDidMount() {
-    console.log(process.env.REACT_APP_PROXY_HOST);
     this.refreshList();
     this.setState({
       activeManhwa:
@@ -117,7 +116,6 @@ class Home extends Component {
         "activeManhwa",
         JSON.stringify(this.state.activeManhwa)
       );
-      console.log(localStorage.getItem("activeManhwa"));
     });
   };
 
