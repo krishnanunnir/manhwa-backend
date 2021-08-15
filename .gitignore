@@ -1,3 +1,4 @@
 .envs/
 .mypy_cache/
 data/
+*.log
