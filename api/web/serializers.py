@@ -23,7 +23,7 @@ class ManhwaSerializer(serializers.ModelSerializer):
         extra_kwargs = {"url": {"lookup_field": "slug"}}
 
 
-class ManhwaListCreateSerialier(serializers.ModelSerializer):
+class ManhwaListCreateSerializer(serializers.ModelSerializer):
     manhwas = serializers.SlugRelatedField(
         many=True, slug_field="slug", queryset=Manhwa.objects.all()
     )
@@ -45,7 +45,7 @@ class ManhwaListCreateSerialier(serializers.ModelSerializer):
         return manhwa_list
 
 
-class ManhwaListListSerialier(serializers.ModelSerializer):
+class ManhwaListListSerializer(serializers.ModelSerializer):
     manhwas = ManhwaSerializer(many=True, read_only=True)
 
     class Meta:
