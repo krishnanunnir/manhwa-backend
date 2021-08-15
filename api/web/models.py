@@ -67,3 +67,6 @@ class ManhwaList(models.Model):
         current_time_as_string = str(datetime.datetime.now())
         self.slug = "%s-%s" % (slugify(current_time_as_string), slugify(self.title))
         super(ManhwaList, self).save(*args, **kwargs)
+
+    def __str__(self) -> str:
+        return "`{}` created by `{}`".format(self.title, self.identifier)
