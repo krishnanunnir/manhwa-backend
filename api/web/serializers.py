@@ -30,7 +30,7 @@ class ManhwaListCreateSerializer(serializers.ModelSerializer):
 
     class Meta:
         model = ManhwaList
-        fields = ("title", "identifier", "slug", "manhwas")
+        fields = ("title", "identifier", "slug", "manhwas", "description")
         lookup_field = "slug"
         extra_kwargs = {"url": {"lookup_field": "slug"}}
 
@@ -50,6 +50,6 @@ class ManhwaListListSerializer(serializers.ModelSerializer):
 
     class Meta:
         model = ManhwaList
-        fields = ("title", "identifier", "slug", "manhwas")
+        fields = ("title", "identifier", "slug", "manhwas", "description")
         lookup_field = "slug"
         extra_kwargs = {"url": {"lookup_field": "slug"}}

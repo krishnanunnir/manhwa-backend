@@ -61,6 +61,7 @@ class ManhwaList(models.Model):
     title = models.CharField(max_length=255)
     identifier = models.CharField(max_length=255)
     slug = models.SlugField(unique=True, blank=True)
+    description = models.TextField()
     manhwas = models.ManyToManyField(Manhwa, blank=True)
 
     def save(self, *args, **kwargs):
