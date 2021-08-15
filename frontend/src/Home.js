@@ -22,6 +22,7 @@ class Home extends Component {
     };
   }
   componentDidMount() {
+    console.log(process.env.REACT_APP_PROXY_HOST);
     this.refreshList();
     this.setState({
       activeManhwa:
@@ -76,7 +77,6 @@ class Home extends Component {
   handleManhwaModalSubmit = (item) => {
     this.manhwaModalToggle();
     const formData = new FormData();
-    console.log(item);
     for (var key in item) {
       formData.append(key, item[key]);
     }
@@ -92,19 +92,14 @@ class Home extends Component {
   };
   handleListModalSubmit = (item) => {
     item = { ...item, manhwas: this.state.activeManhwa };
-    const formData = new FormData();
-    console.log(this.activeManhwa);
-    console.log(item);
-    for (var key in item) {
-      formData.append(key, item[key]);
-    }
     axios({
       method: "post",
       url: "/api/list/",
-      data: formData,
+      data: JSON.stringify(item),
       headers: {
+        accept: "application/json",
         "Accept-Language": "en-US,en;q=0.8",
-        "Content-Type": `multipart/form-data`,
+        "Content-Type": `application/json`,
       },
     });
   };
