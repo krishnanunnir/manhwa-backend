@@ -1,6 +1,10 @@
 from django.contrib.auth.models import User
 from rest_framework import viewsets
-from .serializers import ManhwaListSerialier, ManhwaSerializer
+from .serializers import (
+    ManhwaSerializer,
+    ManhwaListCreateSerialier,
+    ManhwaListListSerialier,
+)
 from .models import Manhwa, ManhwaList
 
 # Create your views here.
@@ -13,6 +17,11 @@ class ManhwaViewSet(viewsets.ModelViewSet):
 
 
 class ManhwaListViewSet(viewsets.ModelViewSet):
+    def get_serializer_class(self):
+        if self.action == "create":
+            return ManhwaListCreateSerialier
+        else:
+            return ManhwaListListSerialier
+
     queryset = ManhwaList.objects.filter()
-    serializer_class = ManhwaListSerialier
     lookup_field = "slug"
