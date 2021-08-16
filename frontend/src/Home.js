@@ -7,7 +7,6 @@ import Modal from "./components/Modal";
 import ListModal from "./components/CreateListModal";
 import "./Home.css";
 import "./Manhwa.css";
-var x = null;
 class Home extends Component {
   constructor(props) {
     super(props);
