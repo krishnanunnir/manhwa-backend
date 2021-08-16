@@ -99,6 +99,8 @@ class Home extends Component {
         "Accept-Language": "en-US,en;q=0.8",
         "Content-Type": `application/json`,
       },
+    }).then((res) => {
+      this.props.history.push("/list/" + res.data["slug"]);
     });
   };
 
