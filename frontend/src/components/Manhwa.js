@@ -2,7 +2,7 @@ import React, { Component } from "react";
 import { Link } from "react-router-dom";
 import plus from "./rounded-plus.svg";
 import minus from "./rounded-minus.svg";
-
+import { Badge } from "reactstrap";
 class Manhwa extends Component {
   constructor(props) {
     super(props);
@@ -51,6 +51,17 @@ class Manhwa extends Component {
                   />
                 </h5>
                 <p className="pt-2">{item.description} </p>
+                <p>
+                  {(() => {
+                    if (item.status === "Ongoing") {
+                      return <Badge color="info">{item.status}</Badge>;
+                    } else if (item.status === "Completed") {
+                      return <Badge color="success">{item.status}</Badge>;
+                    } else {
+                      return <Badge color="danger">{item.status}</Badge>;
+                    }
+                  })()}
+                </p>
               </div>
             </div>
           </div>
