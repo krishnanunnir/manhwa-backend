@@ -35,22 +35,9 @@ class Home extends Component {
         manhwaList: res.data.manhwas,
         title: res.data.title,
         identifier: res.data.identifier,
+        description: res.data.description,
       })
     );
-  };
-  fetchData = () => {
-    axios.get(this.state.next).then((res) => {
-      var has_more = false;
-      if (res.data.next) {
-        has_more = true;
-      }
-      var data = {
-        next: res.data.next,
-        manhwaList: this.state.manhwaList.concat(res.data.results),
-        more_exist: has_more,
-      };
-      this.setState(data);
-    });
   };
 
   manhwaModalToggle = () => {
@@ -63,43 +50,6 @@ class Home extends Component {
     });
     window.location.reload();
   };
-  listModalToggle = () => {
-    this.setState({ listModal: !this.state.listModal });
-  };
-  handleListModalSubmit = (data) => {
-    this.listModalToggle();
-  };
-
-  handleManhwaModalSubmit = (item) => {
-    this.manhwaModalToggle();
-    const formData = new FormData();
-    for (var key in item) {
-      formData.append(key, item[key]);
-    }
-    axios({
-      method: "post",
-      url: "/api/manhwa/",
-      data: formData,
-      headers: {
-        "Accept-Language": "en-US,en;q=0.8",
-        "Content-Type": `multipart/form-data`,
-      },
-    });
-  };
-  handleListModalSubmit = (item) => {
-    item = { ...item, manhwas: this.state.activeManhwa };
-    axios({
-      method: "post",
-      url: "/api/list/",
-      data: JSON.stringify(item),
-      headers: {
-        accept: "application/json",
-        "Accept-Language": "en-US,en;q=0.8",
-        "Content-Type": `application/json`,
-      },
-    });
-  };
-
   addActiveManhwa = (manhwa) => {
     const index = this.state.activeManhwa.indexOf(manhwa);
     var activeManhwa = this.state.activeManhwa;
@@ -119,6 +69,14 @@ class Home extends Component {
   render() {
     return (
       <main className="container">
+        <div class="row justify-content-center mt-8 alertTitle">
+          <div className="col-md-6 col-md-offset-3">
+            <Alert color="primary">
+              <p>You can share this list by copying this url!</p>
+              <p>{window.location.href}</p>
+            </Alert>
+          </div>
+        </div>
         <div className="row justify-content-center m-24 manhwaMargintitle">
           <div className="col-md-6 col-md-offset-3">
             <h1>{this.state.title}</h1>
@@ -133,12 +91,13 @@ class Home extends Component {
             </div>
           </div>
         </div>
-        <div class="row justify-content-center mt-8">
-          <div className="col-md-6 col-md-offset-3">
-            <Alert color="primary">
-              <p>You can share this list by copying this url!</p>
-              <p>{window.location.href}</p>
-            </Alert>
+        <div className="mb-24">
+          <div className="row justify-content-center">
+            <div className="col-md-6 col-md-offset-3">
+              <p>
+                <i>{this.state.description}</i>
+              </p>
+            </div>
           </div>
         </div>
         <div>
