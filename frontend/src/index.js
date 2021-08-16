@@ -7,11 +7,13 @@ import reportWebVitals from "./reportWebVitals";
 import { Route, BrowserRouter as Router, Switch } from "react-router-dom";
 import Details from "./Details";
 import NotFound from "./NotFound";
+import List from "./List";
 
 ReactDOM.render(
   <Router>
     <Switch>
       <Route exact path="/manhwa/:manhwaSlug" component={Details} />
+      <Route exact path="/list/:listSlug" component={List} />
       <Route exact path="/" component={Home} />
       <Route path="/" component={NotFound} />
     </Switch>
