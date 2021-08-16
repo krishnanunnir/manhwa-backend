@@ -7,6 +7,7 @@ import Modal from "./components/Modal";
 import ListModal from "./components/CreateListModal";
 import "./Home.css";
 import "./Manhwa.css";
+import "./index.css";
 import { Alert } from "reactstrap";
 class Home extends Component {
   constructor(props) {
@@ -130,10 +131,10 @@ class Home extends Component {
       },
     })
       .then((res) => {
-        this.props.history.push("/list/" + res.data["slug"]);
         this.setState({ activeManhwa: [] });
         localStorage.removeItem("activeManhwa");
         this.setMessage("success", "Succesfully created the list");
+        this.props.history.push("/list/" + res.data["slug"]);
       })
       .catch((err) => {
         this.setMessage(

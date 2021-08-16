@@ -40,7 +40,7 @@ export default class CustomModal extends Component {
     const { toggle, onSave } = this.props;
 
     return (
-      <Modal isOpen={true} toggle={toggle}>
+      <Modal isOpen={true} toggle={toggle} className="modalText">
         <ModalHeader toggle={toggle}>
           Generate a list with the selected Manhwas
         </ModalHeader>

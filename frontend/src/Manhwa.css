@@ -1,9 +1,9 @@
 .activeManhwa {
   border-radius: 0.1em;
-  border: solid black 1px;
-  box-shadow: 0.4em 0.4em 0px 0px rgba(0, 128, 0, 0.75);
-  -webkit-box-shadow: 0.4em 0.4em 0px 0px rgba(0, 128, 0, 0.75);
-  -moz-box-shadow: 0.4em 0.4em 0px 0px rgba(0, 128, 0, 0.75);
+  border: solid white 1px;
+  box-shadow: 0.4em 0.4em 0px 0px rgba(148, 245, 148, 0.75);
+  -webkit-box-shadow: 0.4em 0.4em 0px 0px rgba(148, 245, 148, 0.75);
+  -moz-box-shadow: 0.4em 0.4em 0px 0px rgba(148, 245, 148, 0.75);
 }
 .manhwaMargin {
   margin-top: 1em;
@@ -16,4 +16,8 @@
 
 .alertTitle {
   margin-top: 1.5em;
+}
+
+.modalText {
+  color: black;
 }

@@ -1,13 +1,13 @@
+import "./index.css";
 import React from "react";
 import ReactDOM from "react-dom";
-import "./index.css";
-import App from "./App";
 import Home from "./Home";
 import reportWebVitals from "./reportWebVitals";
 import { Route, BrowserRouter as Router, Switch } from "react-router-dom";
 import Details from "./Details";
 import NotFound from "./NotFound";
 import List from "./List";
+import "bootstrap/dist/css/bootstrap.css";
 
 ReactDOM.render(
   <Router>
