@@ -7,6 +7,7 @@ import Modal from "./components/Modal";
 import ListModal from "./components/CreateListModal";
 import "./Home.css";
 import "./Manhwa.css";
+import { Alert } from "reactstrap";
 class Home extends Component {
   constructor(props) {
     super(props);
@@ -18,6 +19,11 @@ class Home extends Component {
       newManhwaModal: false,
       listModal: false,
       activeManhwa: [],
+      showMessage: false,
+      message: {
+        type: "danger",
+        message: "If you see this, send a screenshot please!",
+      },
     };
   }
   componentDidMount() {
@@ -27,6 +33,17 @@ class Home extends Component {
         localStorage.getItem("activeManhwa") != null
           ? JSON.parse(localStorage.getItem("activeManhwa"))
           : [],
+    });
+  }
+  toggleMessage = () => {
+    this.setState({
+      showMessage: !this.state.showMessage,
+    });
+  };
+  setMessage(type, message) {
+    this.setState({
+      showMessage: true,
+      message: { type, message },
     });
   }
 
@@ -86,7 +103,19 @@ class Home extends Component {
         "Accept-Language": "en-US,en;q=0.8",
         "Content-Type": `multipart/form-data`,
       },
-    });
+    })
+      .then((res) => {
+        this.setMessage(
+          "success",
+          "Succesfully submitted the Manhwa! Once verified it will be available"
+        );
+      })
+      .catch((err) => {
+        this.setMessage(
+          "danger",
+          "An error occured while trying to create the new Manhwa"
+        );
+      });
   };
   handleListModalSubmit = (item) => {
     item = { ...item, manhwas: this.state.activeManhwa };
@@ -99,11 +128,19 @@ class Home extends Component {
         "Accept-Language": "en-US,en;q=0.8",
         "Content-Type": `application/json`,
       },
-    }).then((res) => {
-      this.props.history.push("/list/" + res.data["slug"]);
-      this.setState({ activeManhwa: [] });
-      localStorage.removeItem("activeManhwa");
-    });
+    })
+      .then((res) => {
+        this.props.history.push("/list/" + res.data["slug"]);
+        this.setState({ activeManhwa: [] });
+        localStorage.removeItem("activeManhwa");
+        this.setMessage("success", "Succesfully created the list");
+      })
+      .catch((err) => {
+        this.setMessage(
+          "danger",
+          "An error occured while trying to create the new list"
+        );
+      });
   };
 
   addActiveManhwa = (manhwa) => {
@@ -142,7 +179,17 @@ class Home extends Component {
             Add a new Manhwa
           </button>
         </div>
-
+        <div className="row justify-content-center">
+          <div className="col-md-6 col-md-offset-3">
+            <Alert
+              color={this.state.message["type"]}
+              isOpen={this.state.showMessage}
+              toggle={this.toggleMessage}
+            >
+              {this.state.message["message"]}
+            </Alert>
+          </div>
+        </div>
         <div className="row justify-content-center">
           <div className="col-md-6 col-md-offset-3">
             <h1>Find the best Manhwas</h1>
