@@ -101,6 +101,8 @@ class Home extends Component {
       },
     }).then((res) => {
       this.props.history.push("/list/" + res.data["slug"]);
+      this.setState({ activeManhwa: [] });
+      localStorage.removeItem("activeManhwa");
     });
   };
 
