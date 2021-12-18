@@ -9,10 +9,10 @@ ENV DJANGO_ALLOWED_HOSTS $DJANGO_ALLOWED_HOSTS
 ENV DJANGO_SECRET_KEY $DJANGO_SECRET_KEY
 ENV DJANGO_CORS_ORIGIN_WHITELIST $DJANGO_CORS_ORIGIN_WHITELIST
 
-WORKDIR /app/api
-COPY requirements.txt /app/api/
+WORKDIR /app
+COPY requirements.txt /app/
 EXPOSE 8000
 RUN pip install -r requirements.txt
-COPY . /app/api/
+COPY . /app/
 
 RUN python manage.py collectstatic
