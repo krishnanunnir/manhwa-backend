@@ -16,7 +16,7 @@ class Manhwa extends Component {
     onChange(item.slug);
   };
   render() {
-    const { item } = this.props;
+    const { item, detailsPage } = this.props;
     this.selected = this.state.selected ? "activeManhwa" : "";
     this.icon = this.state.selected ? minus : plus;
     return (
@@ -40,15 +40,25 @@ class Manhwa extends Component {
             <div>
               <div className="d-flex flex-column p-4">
                 <h5>
-                  <Link to={`manhwa/${item.slug}`}>{item.title} </Link>
-                  <img
-                    src={this.icon}
-                    className="img-fluid"
-                    alt="logo"
-                    onClick={() => {
-                      this.handleChange(item);
-                    }}
-                  />
+                  {(() => {
+                    if (!detailsPage) {
+                      return (
+                        <div>
+                          <Link to={`manhwa/${item.slug}`}>{item.title} </Link>
+                          <img
+                            src={this.icon}
+                            className="img-fluid"
+                            alt="logo"
+                            onClick={() => {
+                              this.handleChange(item);
+                            }}
+                          />
+                        </div>
+                      );
+                    } else {
+                      return <div>{item.title}</div>;
+                    }
+                  })()}
                 </h5>
                 <p className="pt-2">{item.description} </p>
                 <p>

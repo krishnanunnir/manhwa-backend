@@ -228,6 +228,7 @@ class Home extends Component {
               <Manhwa
                 key={item.id}
                 item={item}
+                detailsPage={false}
                 selected={this.state.activeManhwa.includes(item.slug)}
                 onChange={this.addActiveManhwa}
               />

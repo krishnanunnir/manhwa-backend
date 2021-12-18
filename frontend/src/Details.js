@@ -28,7 +28,7 @@ class Details extends Component {
   render() {
     return (
       <main className="details container">
-        <Manhwa item={this.state.manhwa} />
+        <Manhwa item={this.state.manhwa} detailsPage={true} />
         <div className="row justify-content-center">
           <div className="col-md-6 col-md-offset-3">
             <Disqus.DiscussionEmbed
