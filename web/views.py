@@ -14,6 +14,7 @@ class ManhwaViewSet(viewsets.ModelViewSet):
     queryset = Manhwa.objects.filter(verified=True).order_by("created_at")
     serializer_class = ManhwaSerializer
     lookup_field = "slug"
+    http_method_names = ["get", "post"]
 
 
 class ManhwaListViewSet(viewsets.ModelViewSet):
@@ -25,3 +26,4 @@ class ManhwaListViewSet(viewsets.ModelViewSet):
 
     queryset = ManhwaList.objects.filter()
     lookup_field = "slug"
+    http_method_names = ["get", "post"]
