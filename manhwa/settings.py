@@ -27,9 +27,11 @@ BASE_DIR = Path(__file__).resolve().parent.parent
 SECRET_KEY = "django-insecure-m8m=hxu(r(-i-*l1_3$3o9j$*nib(8mqp*4rp2c2u#2cqhh@*b"
 
 # SECURITY WARNING: don't run with debug turned on in production!
-DEBUG = True
+DEBUG = env("debug", default=False)
 
-ALLOWED_HOSTS = ["*"]
+ALLOWED_HOSTS = env("allowed_hosts", default="127.0.0.1,0.0.0.0,v1.manre.art").split(
+    ","
+)
 
 
 # Application definition
@@ -138,11 +140,11 @@ MEDIA_URL = "/media/"
 # https://docs.djangoproject.com/en/3.2/ref/settings/#default-auto-field
 
 DEFAULT_AUTO_FIELD = "django.db.models.BigAutoField"
-CORS_ORIGIN_ALLOW_ALL = True
+# CORS_ORIGIN_ALLOW_ALL = True
 
-# CORS_ALLOWED_ORIGINS = env(
-#     "FRONTEND_URL", default="http://localhost:3000,http://0.0.0.0:3000"
-# ).split(",")
+CORS_ALLOWED_ORIGINS = env(
+    "FRONTEND_URL", default="http://0.0.0.0:3000,https://manre.art"
+).split(",")
 
 REST_FRAMEWORK = {
     "DEFAULT_PAGINATION_CLASS": "rest_framework.pagination.PageNumberPagination",
