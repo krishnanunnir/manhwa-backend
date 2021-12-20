@@ -1,6 +1,7 @@
 from django.db import models
 from django.template.defaultfilters import slugify
 import datetime
+from django.utils.html import mark_safe
 
 # Create your models here.
 
@@ -24,6 +25,12 @@ class Manhwa(models.Model):
 
     def __str__(self) -> str:
         return "{} {} {}".format(self.title, self.author, self.status)
+
+    @property
+    def image_tag(self):
+        return mark_safe(
+            '<img src="/media/%s" width="150" height="150" />' % (self.cover_image)
+        )
 
     def save(self, *args, **kwargs):
         self.slug = slugify(self.title)
