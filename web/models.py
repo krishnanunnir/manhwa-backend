@@ -28,9 +28,7 @@ class Manhwa(models.Model):
 
     @property
     def image_tag(self):
-        return mark_safe(
-            '<img src="/media/%s" width="150" height="150" />' % (self.cover_image)
-        )
+        return mark_safe('<img src="/media/%s" height="100" />' % (self.cover_image))
 
     def save(self, *args, **kwargs):
         self.slug = slugify(self.title)
