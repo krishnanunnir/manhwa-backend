@@ -1,13 +1,23 @@
 from django.contrib.auth.models import User, Group
 from django.db.models.query import QuerySet
-from .models import Manhwa, ManhwaList
+from .models import Manhwa, ManhwaList, Tags
 from rest_framework import serializers
 import logging
 
 logger = logging.getLogger(__name__)
 
 
+class TagsSerializer(serializers.ModelSerializer):
+    class Meta:
+        model = Tags
+        fields = ("name",)
+        lookup_field = "slug"
+        extra_kwargs = {"url": {"lookup_field": "slug"}}
+
+
 class ManhwaSerializer(serializers.ModelSerializer):
+    tags = TagsSerializer(many=True, read_only=True)
+
     class Meta:
         model = Manhwa
         fields = (
