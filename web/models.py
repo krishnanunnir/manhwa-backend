@@ -19,7 +19,7 @@ class Manhwa(models.Model):
     status = models.CharField(choices=choices, max_length=255)
     cover_image = models.ImageField(upload_to="images/cover_images")
     created_at = models.DateTimeField(auto_now_add=True)
-    tags = models.ManyToManyField("Tags", blank=True)
+    tags = models.ManyToManyField("Tags", null=True, blank=True)
     verified = models.BooleanField(default=False)
     rating = models.FloatField(default=0)
 
