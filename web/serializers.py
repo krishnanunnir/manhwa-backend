@@ -10,7 +10,7 @@ logger = logging.getLogger(__name__)
 class TagsSerializer(serializers.ModelSerializer):
     class Meta:
         model = Tags
-        fields = ("name",)
+        fields = ("name", "slug")
         lookup_field = "slug"
         extra_kwargs = {"url": {"lookup_field": "slug"}}
 
