@@ -33,6 +33,32 @@ class ManhwaSerializer(serializers.ModelSerializer):
         extra_kwargs = {"url": {"lookup_field": "slug"}}
 
 
+class ManhwaCreateSerializer(serializers.ModelSerializer):
+    tags = serializers.CharField(max_length=2000)
+
+    class Meta:
+        model = Manhwa
+        fields = (
+            "title",
+            "author",
+            "slug",
+            "description",
+            "status",
+            "cover_image",
+            "tags",
+        )
+        lookup_field = "slug"
+        extra_kwargs = {"url": {"lookup_field": "slug"}}
+
+    def create(self, validated_data):
+        tags_list = validated_data.pop("tags", []).split(",")
+        manhwa = Manhwa.objects.create(**validated_data)
+        manhwa.save()
+        for tag in tags_list:
+            manhwa.tags.add(Tags.objects.get(slug=tag))
+        return manhwa
+
+
 class ManhwaListCreateSerializer(serializers.ModelSerializer):
     manhwas = serializers.SlugRelatedField(
         many=True, slug_field="slug", queryset=Manhwa.objects.all()
