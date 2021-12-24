@@ -53,9 +53,9 @@ class ManhwaCreateSerializer(serializers.ModelSerializer):
     def create(self, validated_data):
         tags_list = validated_data.pop("tags", []).split(",")
         manhwa = Manhwa.objects.create(**validated_data)
-        manhwa.save()
         for tag in tags_list:
             manhwa.tags.add(Tags.objects.get(slug=tag))
+        manhwa.save()
         return manhwa
 
 
