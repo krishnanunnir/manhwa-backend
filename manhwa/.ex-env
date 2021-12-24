@@ -6,3 +6,4 @@ export host=127.0.0.1
 export FRONTEND_URL=http://127.0.0.1:3000
 export debug=False
 export allowed_hosts=127.0.0.1,0.0.0.0
+export CORS_ORIGIN_ALLOW_ALL=True

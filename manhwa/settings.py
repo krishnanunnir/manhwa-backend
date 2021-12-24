@@ -140,7 +140,8 @@ MEDIA_URL = "/media/"
 # https://docs.djangoproject.com/en/3.2/ref/settings/#default-auto-field
 
 DEFAULT_AUTO_FIELD = "django.db.models.BigAutoField"
-# CORS_ORIGIN_ALLOW_ALL = True
+CORS_ORIGIN_ALLOW_ALL = env("CORS_ORIGIN_ALLOW_ALL", default=False)
+
 
 CORS_ALLOWED_ORIGINS = env(
     "FRONTEND_URL", default="http://0.0.0.0:3000,https://manre.art"
