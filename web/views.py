@@ -38,6 +38,7 @@ class ManhwaListViewSet(viewsets.ModelViewSet):
 
 class TagsViewSet(viewsets.ModelViewSet):
     queryset = Tags.objects.all()
+    pagination_class = None
     serializer_class = TagsSerializer
     lookup_field = "slug"
     http_method_names = ["get"]
