@@ -12,11 +12,13 @@ class Manhwa(models.Model):
         ("Cancelled", "Cancelled"),
         ("Completed", "Completed"),
     )
+    types = (("Manhwa", "Manhwa"), ("Manhua", "Manhua"))
     title = models.CharField(max_length=255)
     slug = models.SlugField(unique=True, blank=True)
     author = models.CharField(max_length=255)
     description = models.TextField()
     status = models.CharField(choices=choices, max_length=255)
+    type = models.CharField(choices=types, max_length=255, default="Manhwa")
     cover_image = models.ImageField(upload_to="images/cover_images")
     created_at = models.DateTimeField(auto_now_add=True)
     tags = models.ManyToManyField("Tags", null=True, blank=True)
