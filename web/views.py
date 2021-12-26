@@ -1,4 +1,5 @@
 from django.contrib.auth.models import User
+from django.db.models import query
 from rest_framework import viewsets
 from .serializers import (
     ManhwaCreateSerializer,
@@ -22,8 +23,11 @@ class ManhwaViewSet(viewsets.ModelViewSet):
     def get_queryset(self):
         queryset = self.queryset
         tag_query = self.request.query_params.get("tag")
+        search_query = self.request.query_params.get("search")
         if tag_query:
             queryset = queryset.filter(tags__slug__in=tag_query.split(","))
+        if search_query:
+            queryset = queryset.filter(title__icontains=search_query)
         return queryset
 
     queryset = Manhwa.objects.filter(verified=True).order_by("created_at")
