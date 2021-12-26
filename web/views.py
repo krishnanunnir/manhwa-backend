@@ -19,6 +19,13 @@ class ManhwaViewSet(viewsets.ModelViewSet):
         else:
             return ManhwaSerializer
 
+    def get_queryset(self):
+        queryset = self.queryset
+        tag = self.request.query_params.get("tag")
+        if tag:
+            queryset = queryset.filter(tags__slug=tag)
+        return queryset
+
     queryset = Manhwa.objects.filter(verified=True).order_by("created_at")
     lookup_field = "slug"
     http_method_names = ["get", "post"]
