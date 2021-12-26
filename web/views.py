@@ -21,9 +21,9 @@ class ManhwaViewSet(viewsets.ModelViewSet):
 
     def get_queryset(self):
         queryset = self.queryset
-        tag = self.request.query_params.get("tag").split(",")
-        if tag:
-            queryset = queryset.filter(tags__slug__in=tag)
+        tag_query = self.request.query_params.get("tag")
+        if tag_query:
+            queryset = queryset.filter(tags__slug__in=tag_query.split(","))
         return queryset
 
     queryset = Manhwa.objects.filter(verified=True).order_by("created_at")
