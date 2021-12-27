@@ -48,7 +48,7 @@ class ManhwaListViewSet(viewsets.ModelViewSet):
 
 
 class TagsViewSet(viewsets.ModelViewSet):
-    queryset = Tags.objects.all()
+    queryset = Tags.objects.all().order_by("name")
     pagination_class = None
     serializer_class = TagsSerializer
     lookup_field = "slug"
