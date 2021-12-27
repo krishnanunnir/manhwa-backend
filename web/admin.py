@@ -17,6 +17,7 @@ class AuthorAdmin(admin.ModelAdmin):
 class ManhwaAdmin(admin.ModelAdmin):
     list_display = ("title", "status", "verified", "rating", "image_tag", "created_at")
     actions = [mark_verified]
+    search_fields = ["title"]
 
 
 class TagsAdmin(admin.ModelAdmin):
