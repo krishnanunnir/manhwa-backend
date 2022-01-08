@@ -30,7 +30,9 @@ class ManhwaViewSet(viewsets.ModelViewSet):
             queryset = queryset.filter(title__icontains=search_query)
         return queryset
 
-    queryset = Manhwa.objects.filter(verified=True).order_by("created_at")
+    queryset = Manhwa.objects.filter(
+        verification_status=Manhwa.VERIFICATION_STATUS_VERIFIED
+    ).order_by("created_at")
     lookup_field = "slug"
     http_method_names = ["get", "post"]
 
