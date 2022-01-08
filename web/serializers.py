@@ -44,6 +44,7 @@ class ManhwaCreateSerializer(serializers.ModelSerializer):
             "author",
             "slug",
             "description",
+            "type",
             "status",
             "cover_image",
             "tags",
