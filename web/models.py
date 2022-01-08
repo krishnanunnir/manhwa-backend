@@ -7,10 +7,20 @@ from django.utils.html import mark_safe
 
 
 class Manhwa(models.Model):
+    VERIFICATION_STATUS_VERIFIED = "Verified"
+    VERIFICATION_STATUS_UNVERIFIED = "Unverified"
+    VERIFICATION_STATUS_REJECTED = "Rejected"
+
     choices = (
         ("Ongoing", "Ongoing"),
         ("Cancelled", "Cancelled"),
         ("Completed", "Completed"),
+    )
+
+    verification_status_choices = (
+        (VERIFICATION_STATUS_VERIFIED, "Verified"),
+        (VERIFICATION_STATUS_UNVERIFIED, "Unverified"),
+        (VERIFICATION_STATUS_REJECTED, "Rejected"),
     )
     types = (("Manhwa", "Manhwa"), ("Manhua", "Manhua"))
     title = models.CharField(max_length=255)
@@ -24,6 +34,10 @@ class Manhwa(models.Model):
     tags = models.ManyToManyField("Tags", null=True, blank=True)
     verified = models.BooleanField(default=False)
     rating = models.FloatField(default=0)
+    verification_status = models.CharField(
+        choices=verification_status_choices, max_length=255, default="Unverified"
+    )
+    notes = models.TextField(blank=True, null=True)
 
     def __str__(self) -> str:
         return "{} {} {}".format(self.title, self.author, self.status)
