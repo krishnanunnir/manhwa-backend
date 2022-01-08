@@ -1,4 +1,5 @@
 from django.contrib import admin
+from django.contrib import messages
 from web.models import Manhwa, Tags, Author, ManhwaList
 
 # Register your models here.
@@ -6,13 +7,28 @@ from web.models import Manhwa, Tags, Author, ManhwaList
 
 @admin.action(description="Mark manhwas as verified")
 def mark_verified(ManhwaAdmin, request, queryset):
-    queryset.update(verified=True)
-    queryset.update(verification_status=Manhwa.VERIFICATION_STATUS_VERIFIED)
+    if (
+        queryset.filter(verification_status=Manhwa.VERIFICATION_STATUS_REJECTED).count()
+        > 0
+    ):
+        messages.error(request, "Rejected Manhwas cannot be marked as verified")
+    else:
+        queryset.update(verified=True)
+        queryset.update(verification_status=Manhwa.VERIFICATION_STATUS_VERIFIED)
+        messages.success(request, "Manhwas marked as verified")
 
 
 @admin.action(description="Mark manhwas as rejected")
 def mark_rejected(ManhwaAdmin, request, queryset):
-    queryset.update(verification_status=Manhwa.VERIFICATION_STATUS_REJECTED)
+    if (
+        queryset.filter(verification_status=Manhwa.VERIFICATION_STATUS_VERIFIED).count()
+        > 0
+    ):
+        messages.error(request, "Verified Manhwas cannot be marked as rejected")
+    else:
+        queryset.update(verified=False)
+        queryset.update(verification_status=Manhwa.VERIFICATION_STATUS_REJECTED)
+        messages.success(request, "Manhwas marked as rejected")
 
 
 class AuthorAdmin(admin.ModelAdmin):
