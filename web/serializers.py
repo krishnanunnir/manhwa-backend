@@ -8,11 +8,16 @@ logger = logging.getLogger(__name__)
 
 
 class TagsSerializer(serializers.ModelSerializer):
+    manhwas = serializers.SerializerMethodField()
+
     class Meta:
         model = Tags
-        fields = ("name", "slug")
+        fields = ("name", "slug", "manhwas")
         lookup_field = "slug"
         extra_kwargs = {"url": {"lookup_field": "slug"}}
+
+    def get_manhwas(self, obj):
+        return obj.manhwa_set.all().count()
 
 
 class ManhwaSerializer(serializers.ModelSerializer):
