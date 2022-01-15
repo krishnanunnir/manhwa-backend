@@ -39,7 +39,7 @@ class AuthorAdmin(admin.ModelAdmin):
 class ManhwaAdmin(admin.ModelAdmin):
     list_display = ("title", "verification_icon", "image_tag", "description")
     actions = [mark_verified, mark_rejected]
-    search_fields = ["title", "description"]
+    search_fields = ["title", "description", "alternate_names"]
 
     def verification_icon(self, obj):
         if obj.verification_status == obj.VERIFICATION_STATUS_VERIFIED:
