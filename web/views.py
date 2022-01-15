@@ -9,6 +9,7 @@ from .serializers import (
     TagsSerializer,
 )
 from .models import Manhwa, ManhwaList, Tags
+from django.db.models import Q
 
 # Create your views here.
 
@@ -28,7 +29,8 @@ class ManhwaViewSet(viewsets.ModelViewSet):
             queryset = queryset.filter(tags__slug__in=tag_query.split(","))
         if search_query:
             queryset = queryset.filter(
-                title__icontains=search_query, alternate_names__icontains=search_query
+                Q(title__icontains=search_query)
+                | Q(alternate_names__icontains=search_query)
             )
         return queryset
 
