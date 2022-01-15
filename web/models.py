@@ -37,6 +37,12 @@ class Manhwa(models.Model):
     verification_status = models.CharField(
         choices=verification_status_choices, max_length=255, default="Unverified"
     )
+    alternate_names = models.CharField(
+        max_length=750,
+        blank=True,
+        null=True,
+        help_text="Add comma separated values for the alternate names for the manhwa",
+    )
     notes = models.TextField(blank=True, null=True)
 
     def __str__(self) -> str:
