@@ -10,6 +10,7 @@ from .serializers import (
 )
 from .models import Manhwa, ManhwaList, Tags
 from django.db.models import Q
+from django.contrib.postgres.search import SearchVector
 
 # Create your views here.
 
@@ -28,10 +29,10 @@ class ManhwaViewSet(viewsets.ModelViewSet):
         if tag_query:
             queryset = queryset.filter(tags__slug__in=tag_query.split(","))
         if search_query:
-            queryset = queryset.filter(
-                Q(title__icontains=search_query)
-                | Q(alternate_names__icontains=search_query)
-            )
+            queryset = queryset.annotate(
+                search=SearchVector("title", "alternate_names", "description")
+            ).filter(search=search_query)
+
         return queryset
 
     queryset = Manhwa.objects.filter(
