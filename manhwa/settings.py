@@ -45,6 +45,7 @@ INSTALLED_APPS = [
     "django.contrib.staticfiles",
     "django.contrib.postgres",
     "web",
+    "authentication",
     "corsheaders",
     "rest_framework",
     "django_seed",
@@ -95,7 +96,7 @@ DATABASES = {
         "PORT": env("port", default="5432"),
     }
 }
-
+AUTH_USER_MODEL = "authentication.CustomUser"
 
 # Password validation
 # https://docs.djangoproject.com/en/3.2/ref/settings/#auth-password-validators
