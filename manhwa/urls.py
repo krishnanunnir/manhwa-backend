@@ -19,11 +19,13 @@ from web.views import ManhwaViewSet
 from django.conf import settings
 from django.conf.urls.static import static
 import web.urls
+import authentication.urls
 
 urlpatterns = [
     path("admin/", admin.site.urls),
     path("api-auth/", include("rest_framework.urls", namespace="rest_framework")),
     path("api/", include(web.urls)),
+    path("auth/", include(authentication.urls)),
 ]
 if settings.DEBUG:
     urlpatterns += static(settings.MEDIA_URL, document_root=settings.MEDIA_ROOT)
