@@ -1,6 +1,6 @@
-from django.contrib import admin
-from django.contrib import messages
-from web.models import Manhwa, Tags, Author, ManhwaList
+from django.contrib import admin, messages
+
+from web.models import Author, Blog, Manhwa, ManhwaList, Tags
 
 # Register your models here.
 
@@ -35,6 +35,10 @@ class AuthorAdmin(admin.ModelAdmin):
     pass
 
 
+class BlogAdmin(admin.ModelAdmin):
+    list_display = ("title",)
+
+
 @admin.register(Manhwa)
 class ManhwaAdmin(admin.ModelAdmin):
     list_display = ("title", "verification_icon", "image_tag", "description")
@@ -61,5 +65,6 @@ class ManhwaListAdmin(admin.ModelAdmin):
 
 
 admin.site.register(Author, AuthorAdmin)
+admin.site.register(Blog, BlogAdmin)
 admin.site.register(Tags, TagsAdmin)
 admin.site.register(ManhwaList, ManhwaListAdmin)

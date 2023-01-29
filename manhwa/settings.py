@@ -11,6 +11,7 @@ https://docs.djangoproject.com/en/3.2/ref/settings/
 """
 import os
 from pathlib import Path
+
 import environ
 
 env = environ.Env()
@@ -48,6 +49,7 @@ INSTALLED_APPS = [
     "corsheaders",
     "rest_framework",
     "django_seed",
+    "mdeditor",
 ]
 
 MIDDLEWARE = [
@@ -157,17 +159,37 @@ LOGGING = {
     "version": 1,
     "disable_existing_loggers": False,
     "handlers": {
-        "file": {
+        "access_file": {
+            "level": "INFO",
+            "class": "logging.FileHandler",
+            "filename": "access.log",
+            "formatter": "access",
+        },
+        "error_file": {
             "level": "ERROR",
             "class": "logging.FileHandler",
-            "filename": "./debug.log",
+            "filename": "debug.log",
+            "formatter": "debug",
+        },
+    },
+    "formatters": {
+        "access": {
+            "format": "%(asctime)s - %(levelname)s - %(message)s",
+        },
+        "debug": {
+            "format": "%(asctime)s - %(levelname)s - %(name)s - %(message)s\n%(traceback)s",
         },
     },
     "loggers": {
-        "django": {
-            "handlers": ["file"],
-            "level": "ERROR",
+        "django.request": {
+            "handlers": ["access_file"],
+            "level": "INFO",
             "propagate": True,
+        },
+        "django": {
+            "handlers": ["error_file"],
+            "level": "ERROR",
+            "propagate": False,
         },
     },
 }

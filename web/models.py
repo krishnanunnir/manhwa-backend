@@ -1,9 +1,9 @@
+import datetime
+
 from django.db import models
 from django.template.defaultfilters import slugify
-import datetime
 from django.utils.html import mark_safe
-
-# Create your models here.
+from mdeditor.fields import MDTextField
 
 
 class Manhwa(models.Model):
@@ -98,3 +98,13 @@ class ManhwaList(models.Model):
 
     def __str__(self) -> str:
         return "`{}` created by `{}`".format(self.title, self.identifier)
+
+
+class Blog(models.Model):
+    title = models.CharField(max_length=255)
+    slug = models.SlugField(unique=True, blank=True, max_length=500)
+    content = MDTextField()
+
+    def save(self, *args, **kwargs):
+        self.slug = slugify(self.title)
+        super(Blog, self).save(*args, **kwargs)

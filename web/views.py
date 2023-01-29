@@ -1,16 +1,10 @@
-from django.contrib.auth.models import User
-from django.db.models import query
-from rest_framework import viewsets
-from .serializers import (
-    ManhwaCreateSerializer,
-    ManhwaSerializer,
-    ManhwaListCreateSerializer,
-    ManhwaListListSerializer,
-    TagsSerializer,
-)
-from .models import Manhwa, ManhwaList, Tags
-from django.db.models import Q
 from django.contrib.postgres.search import SearchVector
+from rest_framework import viewsets
+
+from .models import Blog, Manhwa, ManhwaList, Tags
+from .serializers import (BlogSerializer, ManhwaCreateSerializer,
+                          ManhwaListCreateSerializer, ManhwaListListSerializer,
+                          ManhwaSerializer, TagsSerializer)
 
 # Create your views here.
 
@@ -58,5 +52,12 @@ class TagsViewSet(viewsets.ModelViewSet):
     queryset = Tags.objects.all().order_by("name")
     pagination_class = None
     serializer_class = TagsSerializer
+    lookup_field = "slug"
+    http_method_names = ["get"]
+
+
+class BlogsViewSet(viewsets.ModelViewSet):
+    queryset = Blog.objects.all().order_by("id")
+    serializer_class = BlogSerializer
     lookup_field = "slug"
     http_method_names = ["get"]
