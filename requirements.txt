@@ -8,6 +8,7 @@ distlib==0.3.2
 Django==3.2.6
 django-cors-headers==3.7.0
 django-environ==0.4.5
+django-mdeditor==0.1.20
 django-seed==0.2.2
 djangorestframework==3.12.4
 factory-boy==3.2.0
