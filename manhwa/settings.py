@@ -12,6 +12,7 @@ https://docs.djangoproject.com/en/3.2/ref/settings/
 import os
 from pathlib import Path
 
+import dj_database_url
 import environ
 
 env = environ.Env()
@@ -47,9 +48,9 @@ INSTALLED_APPS = [
     "django.contrib.postgres",
     "web",
     "corsheaders",
-    "rest_framework",
     "django_seed",
     "mdeditor",
+    "compressor",  # new
 ]
 
 MIDDLEWARE = [
@@ -68,7 +69,7 @@ ROOT_URLCONF = "manhwa.urls"
 TEMPLATES = [
     {
         "BACKEND": "django.template.backends.django.DjangoTemplates",
-        "DIRS": [],
+        "DIRS": [BASE_DIR / "templates"],
         "APP_DIRS": True,
         "OPTIONS": {
             "context_processors": [
@@ -87,16 +88,11 @@ WSGI_APPLICATION = "manhwa.wsgi.application"
 # Database
 # https://docs.djangoproject.com/en/3.2/ref/settings/#databases
 
-DATABASES = {
-    "default": {
-        "ENGINE": "django.db.backends.postgresql",
-        "NAME": env("name", default="postgres"),
-        "USER": env("user", default="postgres"),
-        "PASSWORD": env("password", default="postgres"),
-        "HOST": env("host", default="db"),
-        "PORT": env("port", default="5432"),
-    }
-}
+DATABASE_URL = env(
+    "DATABASE_URL", default="postgres://postgres:postgres@db:5432/postgres"
+)
+
+DATABASES = {"default": dj_database_url.config()}
 
 
 # Password validation
@@ -193,3 +189,10 @@ LOGGING = {
         },
     },
 }
+
+
+COMPRESS_ROOT = BASE_DIR / "static"
+
+COMPRESS_ENABLED = True
+
+STATICFILES_FINDERS = ("compressor.finders.CompressorFinder",)
