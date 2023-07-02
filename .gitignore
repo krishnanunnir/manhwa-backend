@@ -39,6 +39,7 @@ lib/
 lib64/
 parts/
 static/
+!static/src/*
 sdist/
 var/
 wheels/
@@ -118,3 +119,4 @@ GitHub.sublime-settings
 
 data/
 .envs/
+node_modules/
